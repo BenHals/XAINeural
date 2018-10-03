@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel = "stylesheet" href="index.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+
+        <script src="data.js"></script>
+        <script src="main.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="display" id="main_display">
+                    <svg id="anim_base_layer_svg">
+
+                    </svg>
+            </div>
+            <div class="controls">
+                <div id="visControls">
+                    <div id="buttonBar">
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="update()">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">Update</span>
+                      </button>
+                      <button id="pausePlay" type="button" class="btn btn-default" aria-label="Back" onclick="pauseToggle()">
+                        <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
+                      </button>
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="toggleImpact()">
+                        <span class="glyphicon glyphicon-step-forward" aria-hidden="true">Impact</span>
+                      </button>
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="toggleConfidence()">
+                        <span class="glyphicon glyphicon-forward" aria-hidden="true">Confidence</span>
+                      </button>
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="toggleExcess()">
+                        <span class="glyphicon glyphicon-step-forward" aria-hidden="true">Excess</span>
+                      </button>
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="">
+                        <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+                      </button>
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="">
+                        <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
+                      </button>
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="">
+                        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                    <input id="visAnimProgress" type="range" min="0" list="stages">
+                    <datalist id="stages"></datalist>
+                </div>
+            </div>
+        </div>
+    </body>
+
+
+</html>
