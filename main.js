@@ -38,17 +38,45 @@ function update(){
 
 function toggleImpact(){
     overlays.nodeImpact = !overlays.nodeImpact;
+    if(overlays.nodeImpact){
+        d3.select('.impact').classed('btn-default', false);
+        d3.select('.impact').classed('btn-primary', true);
+    }else{
+        d3.select('.impact').classed('btn-default', true);
+        d3.select('.impact').classed('btn-primary', false);
+    }
     update();
 }
 function toggleConfidence(){
     overlays.nodeConfidence = !overlays.nodeConfidence;
+    if(overlays.nodeConfidence){
+        d3.select('.conf').classed('btn-default', false);
+        d3.select('.conf').classed('btn-primary', true);
+    }else{
+        d3.select('.conf').classed('btn-default', true);
+        d3.select('.conf').classed('btn-primary', false);
+    }
     update();
 }
 function toggleExcess(){
     overlays.excessEdges = !overlays.excessEdges;
+    if(overlays.excessEdges){
+        d3.select('.excess').classed('btn-default', false);
+        d3.select('.excess').classed('btn-primary', true);
+    }else{
+        d3.select('.excess').classed('btn-default', true);
+        d3.select('.excess').classed('btn-primary', false);
+    }
     update();
 }
 function toggleBounds(){
     overlays.jitter = !overlays.jitter;
+    if(overlays.jitter){
+        d3.select('.jitter').classed('btn-default', false);
+        d3.select('.jitter').classed('btn-primary', true);
+    }else{
+        d3.select('.jitter').classed('btn-default', true);
+        d3.select('.jitter').classed('btn-primary', false);
+    }
     update();
 }

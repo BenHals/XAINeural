@@ -1,3 +1,6 @@
+function getRadius(basedOn, minR, maxR){
+    return Math.min(Math.max(basedOn, minR), maxR)
+}
 class Node{
     constructor(parents, children, parentWeights, excessEdges, activation, name, x, y, nodeImpact, nodeConfidence, ub, lb){
         this.parents = parents;
@@ -16,13 +19,16 @@ class Node{
         this.edgeWidths = [];
         this.mainOpacity = 1;
         this.jitterOpacity = 1;
-        this.minJitterR = this.lb * 10;
-        this.maxJitterR = this.ub * 10;
+        this.minR = 2;
+        this.maxR = 30;
+        this.minJitterR = getRadius(this.lb * 10, this.minR, this.maxR);
+        this.maxJitterR = getRadius(this.ub * 10, this.minR, this.maxR);
         this.mainJitterR = this.activation * 10;
         for(let e = 0; e < parentWeights.length; e++){
             this.edgeWidths.push(parentWeights[e] * parents[e].activation);
         }
         this.color = 'black';
+
     }
 
     draw(){
@@ -120,12 +126,13 @@ class Network{
 
         
     }
+
     changeRand(){
         let flat = this.layers.flat();
         for(let n = 0; n < flat.length; n++){
             let node = flat[n];
             if(!node.parents) {
-                node.r = Math.floor(Math.random() * Math.floor(50));
+                node.r = this.getRadius(Math.floor(Math.random() * Math.floor(50)), node.minR, node.maxR);
             }else{
                 let activationSum = 0;
                 for(let pw = 0; pw < node.parentWeights.length; pw++){
@@ -142,9 +149,9 @@ class Network{
         let flat = this.layers.flat();
         for(let n = 0; n < flat.length; n++){
             let node = flat[n];
-            node.r = node.activation * 10;
+            node.r = getRadius(node.activation * 10, node.minR, node.maxR);
             if(overlays.nodeImpact){
-                node.r = node.nodeImpact * 10;
+                node.r = getRadius(node.nodeImpact * 10, node.minR, node.maxR);
             }
 
             node.color = 'black';
