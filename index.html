@@ -10,7 +10,7 @@
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
 
         <script src="data.js"></script>
         <script src="main.js"></script>
@@ -25,12 +25,13 @@
             <div class="controls">
                 <div id="visControls">
                     <div id="buttonBar">
+                      <!-- 
                       <button type="button" class="btn btn-default" aria-label="Back" onclick="update()">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">Update</span>
                       </button>
                       <button id="pausePlay" type="button" class="btn btn-default" aria-label="Back" onclick="pauseToggle()">
                         <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
-                      </button>
+                      </button>-->
                       <button type="button" class="btn btn-default" aria-label="Back" onclick="toggleImpact()">
                         <span class="glyphicon glyphicon-step-forward" aria-hidden="true">Impact</span>
                       </button>
@@ -40,10 +41,10 @@
                       <button type="button" class="btn btn-default" aria-label="Back" onclick="toggleExcess()">
                         <span class="glyphicon glyphicon-step-forward" aria-hidden="true">Excess</span>
                       </button>
-                      <button type="button" class="btn btn-default" aria-label="Back" onclick="">
-                        <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+                      <button type="button" class="btn btn-default" aria-label="Back" onclick="toggleBounds()">
+                        <span class="glyphicon glyphicon-forward" aria-hidden="true">Jitter</span>
                       </button>
-                      <button type="button" class="btn btn-default" aria-label="Back" onclick="">
+                      <!-- <button type="button" class="btn btn-default" aria-label="Back" onclick="">
                         <span class="glyphicon glyphicon-flash" aria-hidden="true"></span>
                       </button>
                       <button type="button" class="btn btn-default" aria-label="Back" onclick="">
@@ -51,7 +52,7 @@
                       </button>
                     </div>
                     <input id="visAnimProgress" type="range" min="0" list="stages">
-                    <datalist id="stages"></datalist>
+                    <datalist id="stages"></datalist> -->
                 </div>
             </div>
         </div>

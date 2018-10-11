@@ -25,7 +25,7 @@ window.onload = function(){
     container.appendChild(base_layer_svg);
     //container.appendChild(dynamic_layer_canvas);
 
-    nn = new Network([2, 5, 3, 2], containerBounds);
+    nn = new Network([8, 8, 6, 3], containerBounds);
     nn.draw();
     nn.applyOverlays(overlays);
     nn.update();
@@ -49,6 +49,6 @@ function toggleExcess(){
     update();
 }
 function toggleBounds(){
-    overlays.nodeBounds = !overlays.nodeBounds;
+    overlays.jitter = !overlays.jitter;
     update();
 }
