@@ -1,5 +1,17 @@
 let nn = null;
 let overlays = {nodeImpact:false, nodeConfidence:false, excessEdges:false, nodeBounds:false};
+let input = {};
+
+
+let testNets = [
+    {
+        jitterJSON:'{"0": {"upperBound": 0.01, "upperBoundClass": "[[0.95409715]]", "lowerBound": -0.01, "lowerBoundClass": "[[0.9571627]]"}, "1": {"upperBound": 1.01, "upperBoundClass": "[[0.95708185]]", "lowerBound": 0.99, "lowerBoundClass": "[[0.95419014]]"}}',
+        backpropagateJSON:'{"2": 1.0, "0": -0.5140106105599853, "1": 0.4859894140633067}',
+        confidenceJSON:'{"0": 0.9996678829193115, "1": 0.7928024530410767, "2": 0.9113708734512329}',
+        excessJSON:'{"0": ["2"], "2": [], "1": ["2"]}',
+        netJSON:'{"0": {"Output": 0.9998339414596558, "Weights": {"input_0": "-5.67429", "input_1": "5.7662168"}}, "1": {"Output": 0.8964012265205383, "Weights": {"input_0": "-4.97642", "input_1": "4.6954"}}, "2": {"Output": 0.9556854367256165, "Weights": {"0": "-7.433149", "1": "7.8388615"}}}',
+    }
+]
 window.onload = function(){
 
     // Create SVG layer and cover full screen.
@@ -25,10 +37,50 @@ window.onload = function(){
     container.appendChild(base_layer_svg);
     //container.appendChild(dynamic_layer_canvas);
 
-    nn = new Network([8, 8, 6, 3], containerBounds);
+    let inputNet = testNets[0];
+
+    let retVal = parseNetJSON(inputNet.jitterJSON, inputNet.backpropagateJSON, inputNet.confidenceJSON, inputNet.excessJSON, inputNet.netJSON);
+    let netMap = retVal[0];
+    let lSizes = retVal[1];
+
+    nn = new Network(lSizes, containerBounds, JSON.parse(inputNet.jitterJSON), JSON.parse(inputNet.backpropagateJSON), JSON.parse(inputNet.confidenceJSON), JSON.parse(inputNet.excessJSON), JSON.parse(inputNet.netJSON), netMap);
     nn.draw();
     nn.applyOverlays(overlays);
     nn.update();
+}
+
+function parseNetJSON(j, b, v, e, n){
+    let net = JSON.parse(n);
+    let jitter = JSON.parse(j);
+    let lSizes = [];
+    let netLayers = [];
+
+    // Number of inputs
+    
+    netLayers.push([]);
+    for(let k in Object.keys(jitter)){
+        netLayers[0].push("input_" + k);
+    }
+    for(let nName in Object.keys(net)){
+        let layerIndexOfParent = 0;
+        for(let l in netLayers){
+            if(netLayers[l].indexOf(Object.keys(net[nName].Weights)[0]) != -1){
+                break;
+            }
+            layerIndexOfParent++;
+        }
+        layerIndexOfNode = layerIndexOfParent + 1;
+        if(layerIndexOfNode >= netLayers.length){
+            netLayers.push([]);
+        }
+        netLayers[layerIndexOfNode].push(nName);
+    }
+    for(let l in netLayers){
+        lSizes.push(netLayers[l].length);
+    }
+    console.log(netLayers);
+    console.log(lSizes);
+    return [netLayers, lSizes];
 }
 
 function update(){

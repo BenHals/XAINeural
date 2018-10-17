@@ -1,3 +1,6 @@
+
+
+
 function getRadius(basedOn, minR, maxR){
     return Math.min(Math.max(basedOn, minR), maxR)
 }
@@ -36,7 +39,7 @@ class Node{
     }
 }
 class Network{
-    constructor(layerSizes, containerBounds){
+    constructor(layerSizes, containerBounds, jitMap, bacMap, confMap, excMap, weiMap, netMap){
         this.layers = [];
         let nodeId = 0;
         let margin = containerBounds.width * 0.2;
@@ -44,16 +47,29 @@ class Network{
         for(let l = 0; l < layerSizes.length; l++){
             this.layers.push([]);
             let nodeSpacing = containerBounds.height / (layerSizes[l] + 1);
-            for(let n = 0; n < layerSizes[l]; n++){
+            for(let n = 0; n < netMap[l].length; n++){
                 let lastLayer = l > 0 ? this.layers[l-1] : null;
                 let x = margin + l * layerSpacing;
                 let y = (n+1) * nodeSpacing;
-                let newNode = new Node(lastLayer, null, [], [], Math.random(), nodeId, x, y, Math.random(), Math.random(), Math.random(), Math.random());
+                let name = netMap[l][n];
+                let act = name in weiMap ? weiMap[name].Output : Math.random();
+                let imp = name in bacMap ? bacMap[name] : Math.random();
+                let conf = name in confMap ? confMap[name] : Math.random();
+                let ub = Math.random();
+                let lb = Math.random();
+                if(l == 0){
+                    ub = jitMap[n].upperBound;
+                    lb = jitMap[n].lowerBound;
+                }
+                let newNode = new Node(lastLayer, null, [], [], act, name, x, y, imp, conf, ub, lb);
                 nodeId++;
                 if(lastLayer){
                     for(let ln = 0; ln < lastLayer.length; ln++){
-                        newNode.parentWeights.push(1);
-                        newNode.excessEdges.push(Math.round(Math.random()));
+                        
+                        let parName = netMap[l-1][ln];
+                        let ex = parName in excMap && excMap[parName].indexOf(name) == -1 ? 0 : 1;
+                        newNode.parentWeights.push(weiMap[name].Weights[parName]);
+                        newNode.excessEdges.push(ex);
                         if(lastLayer[ln].children == null){
                             lastLayer[ln].children = [];
                         }
