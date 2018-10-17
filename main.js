@@ -1,7 +1,7 @@
 let nn = null;
 let overlays = {nodeImpact:false, nodeConfidence:false, excessEdges:false, nodeBounds:false};
 let input = {};
-
+let textboxStack = ["Network activation view"];
 
 let testNets = [
     {
@@ -99,56 +99,72 @@ function update(speed=1000){
 function toggleImpact(){
     overlays.nodeImpact = !overlays.nodeImpact;
     if(overlays.nodeImpact){
+        textboxStack.push("Node size indicates their impact on classification");
+        
         d3.select('.impact').classed('btn-default', false);
         d3.select('.impact').classed('btn-primary', true);
     }else{
+        textboxStack.pop();
         d3.select('.impact').classed('btn-default', true);
         d3.select('.impact').classed('btn-primary', false);
     }
+    d3.select("#info").text(textboxStack[textboxStack.length-1]);
     update();
 }
 function toggleConfidence(){
     overlays.nodeConfidence = !overlays.nodeConfidence;
     if(overlays.nodeConfidence){
+        textboxStack.push("Node color indicates their stability");
         d3.select('.conf').classed('btn-default', false);
         d3.select('.conf').classed('btn-primary', true);
     }else{
+        textboxStack.pop();
         d3.select('.conf').classed('btn-default', true);
         d3.select('.conf').classed('btn-primary', false);
     }
+    d3.select("#info").text(textboxStack[textboxStack.length-1]);
     update();
 }
 function toggleExcess(){
     overlays.excessEdges = !overlays.excessEdges;
     if(overlays.excessEdges){
+        textboxStack.push("Non-important edges are removed");
         d3.select('.excess').classed('btn-default', false);
         d3.select('.excess').classed('btn-primary', true);
     }else{
+        textboxStack.pop();
         d3.select('.excess').classed('btn-default', true);
         d3.select('.excess').classed('btn-primary', false);
     }
+    d3.select("#info").text(textboxStack[textboxStack.length-1]);
     update();
 }
 function toggleBounds(){
     overlays.jitter = !overlays.jitter;
     if(overlays.jitter){
+        textboxStack.push("Input bounds before a class change occurs");
         d3.select('.jitter').classed('btn-default', false);
         d3.select('.jitter').classed('btn-primary', true);
     }else{
+        textboxStack.pop();
         d3.select('.jitter').classed('btn-default', true);
         d3.select('.jitter').classed('btn-primary', false);
     }
+    d3.select("#info").text(textboxStack[textboxStack.length-1]);
     update();
 }
 function toggleCalc(){
     overlays.calc = !overlays.calc;
     if(overlays.calc){
+        textboxStack.push("Drag an input to change it");
         d3.select('.calc').classed('btn-default', false);
         d3.select('.calc').classed('btn-primary', true);
     }else{
+        textboxStack.pop();
         d3.select('.calc').classed('btn-default', true);
         d3.select('.calc').classed('btn-primary', false);
     }
+    d3.select("#info").text(textboxStack[textboxStack.length-1]);
     nn.updateCalc();
     update();
 }
