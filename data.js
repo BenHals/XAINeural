@@ -104,7 +104,7 @@ class Network{
                     for(let ln = 0; ln < lastLayer.length; ln++){
                         
                         let parName = netMap[l-1][ln];
-                        let ex = parName in excMap && excMap[parName].indexOf(name) == -1 ? 0 : 1;
+                        let ex = parName in excMap && excMap[parName].indexOf(name) != -1 ? 0 : 1;
                         newNode.parentWeights.push(parseFloat(weiMap[name].Weights[parName]));
                         newNode.excessEdges.push(ex);
                         if(lastLayer[ln].children == null){
