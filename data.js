@@ -200,7 +200,7 @@ class Network{
             if(!overlays.calc) return;
             console.log('drag');
             console.log(d3.event.dx);
-            d.calculatedAct += d3.event.dx + d3.event.dy*-1;
+            d.calculatedAct += (d3.event.dx + d3.event.dy*-1) * 0.1;
             console.log(d.calculatedAct);
             nn.updateCalc();
             update(0);
