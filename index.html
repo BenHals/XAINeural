@@ -10,6 +10,7 @@
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://d3js.org/d3.v5.min.js"></script>
 
         <script src="data.js"></script>
@@ -35,6 +36,10 @@
                       <button id="pausePlay" type="button" class="btn btn-default" aria-label="Back" onclick="pauseToggle()">
                         <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
                       </button>-->
+                      <label for="inputSelect">Test net</label>
+                      <select class='btn' id='inputSelect' onchange="selectInput()">
+
+                      </select>
                       <button type="button" class="btn btn-default impact" aria-label="Back" onclick="toggleImpact()">
                         <span class="glyphicon glyphicon-step-forward" aria-hidden="true">Impact</span>
                       </button>
